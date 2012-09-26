@@ -65,9 +65,9 @@ void testApp::setup(){
 void testApp::draw(){
     glColor4f(0, 0, 0, 1);
     
-    ofDrawBitmapString("Press keys 1, 2, 3, 4, 5 to destroy the smart pointers pointing to the same object.\nEven though they point to the same object, the object remains in memory until all pointers have been destroyed.\nCheck the console to see when the object is actually deleted.", 20, 30);
+    ofDrawBitmapString("Press keys 1, 2, 3, 4, 5 to destroy the smart pointers pointing to the same object.\nEven though they all point to the same object, the object remains in memory until all pointers have been destroyed.\nCheck the console to see when the object is actually deleted.", 20, 30);
     
-    ofDrawBitmapString("Press keys q, w, e, r, t to destroy the normal pointers pointing to the same object.\nSince they point to the same object, as soon as you delete one, the others will go bonkers (and will probably crash).\nCheck the console to see when the object is actually deleted.", 20, 230);
+    ofDrawBitmapString("Press keys q, w, e, r, t to destroy the normal pointers pointing to the same object.\nSince they all point to the same object, as soon as you delete one, the others will go bonkers (and will probably crash).\nCheck the console to see when the object is actually deleted.", 20, 230);
     
     for(int i=0; i<smartPointers.size(); i++) {
         if(smartPointers[i]) smartPointers[i]->draw(i * 150 + 30, 70);
@@ -80,13 +80,16 @@ void testApp::draw(){
 void testApp::keyPressed (int key){
     switch(key) {
         // reset smart pointers
+        // Even though they all point to the same object, the object remains in memory until all pointers have been destroyed.
         case '1': smartPointers[0].reset(); break;
         case '2': smartPointers[1].reset(); break;
         case '3': smartPointers[2].reset(); break;
         case '4': smartPointers[3].reset(); break;
         case '5': smartPointers[4].reset(); break;
             
+            
         // delete normal pointers
+        // Since they all point to the same object, as soon as you delete one, the others will go bonkers (and will probably crash shortly after).
         case 'q': delete normalPointers[0]; break;
         case 'w': delete normalPointers[1]; break;
         case 'e': delete normalPointers[2]; break;
